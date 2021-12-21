@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>LitReview connexion</title>
+    </head>
+    <body>
+        <h1>Connectez-vous</h1>
+        <h2>{{message}}</h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Se connecter">
+        </form>
+    </body>
+</html>
