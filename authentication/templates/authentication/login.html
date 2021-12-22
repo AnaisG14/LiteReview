@@ -10,5 +10,7 @@
             {{ form.as_p }}
             <input type="submit" value="Se connecter">
         </form>
+        <h2>Pas encore inscrit</h2>
+        <a href="{% url 'authentication:signup' %}"><button type="button">S'inscrire</button></a>
     </body>
 </html>

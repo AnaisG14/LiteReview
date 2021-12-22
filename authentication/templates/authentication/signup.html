@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>LitReview inscription</title>
+    </head>
+    <body>
+        {% if message == '' %}
+            <h1>Inscrivez-vous</h1>
+        {% else %}
+            {{ message }}
+        {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="S'inscrire">
+        </form>
+        <p><a href="{% url 'authentication:login' %}"><button type="button">Se connecter</button></a></p>
+    </body>
+</html>

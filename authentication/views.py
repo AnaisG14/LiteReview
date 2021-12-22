@@ -20,9 +20,20 @@ def login_page(request):
             )
             if user is not None:
                 login(request, user)
-                message = f"Vous êtes connecté en tant que {user.username}"
                 return redirect('review:home')
             else:
                 message = "identifiants invalides"
     context = {'form': form, 'message': message}
     return render(request, 'authentication/login.html', context)
+
+
+def signup(request):
+    form = forms.SignUpForm()
+    message = ''
+    if request.method == 'POST':
+        form = forms.SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = 'Votre inscription est effectuée, connectez-vous'
+    context = {'form': form, 'message': message}
+    return render(request, 'authentication/signup.html', context)

@@ -3,11 +3,13 @@
         <title>LitReview</title>
     </head>
     <body>
+        <h2>Connecté en tant que {{ user.username }}</h2>
         <nav>
             <ul>
                 <li><a href="{% url 'authentication:logout' %}">Se déconnecter</a></li>
             </ul>
         </nav>
-        <h1>Bienvenue à l'accueil du site LitReview</h1>
+        {% block content %}
+        {% endblock %}
     </body>
 </html>
