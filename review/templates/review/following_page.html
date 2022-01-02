@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Vos abonnements et abonnés</h2>
+    <p>vous suivez :
+    {% for followed in user_followed %}
+        <li>{{ followed.username }} <a href="">(Se désabonner)</a></li>
+    {% endfor %}
+    </p>
+    <p>vous êtes suivis par :
+     {% for follower in user_followers %}
+        <li>{{ follower }}</li>
+    {% endfor %}
+    </p>
+    <a href="{% url 'review:follow_users' %}"><button>S'abonner</button></a>
+{% endblock content %}

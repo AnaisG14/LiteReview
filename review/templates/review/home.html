@@ -3,4 +3,19 @@
 {% block content %}
 <h1>Bienvenue à l'accueil du site LitReview</h1>
 
+<button type="button" class="btn btn-secondary">Créer une critique</button>
+<a href="{% url 'review:add_ticket' %}"><button type="button" class="btn btn-secondary">Demander une critique</button></a>
+
+<div class="container-fluid">
+    {% for ticket in tickets %}
+    <div class="bg-light border m-5">
+        <p>{{ ticket.user }} demande une critique: {{ ticket.time_created}}</p>
+        <h2>{{ ticket.title }}</h2>
+        <p>{{ ticket.description }}</p>
+        <p><img src="{{ticket.image.url}}" alt="{{ticket.title}}"></p>
+    </div>
+    {% endfor %}
+</div>
+
 {% endblock %}
+

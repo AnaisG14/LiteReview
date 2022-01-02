@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Ajouter un ticket</h1>
+
+<div class="container-fluid">
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form_ticket.as_p}}
+    <button type="submit">Ajouter le ticket</button>
+</form>
+</div>
+
+{% endblock %}
