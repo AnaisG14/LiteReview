@@ -37,3 +37,5 @@ def signup(request):
             message = 'Votre inscription est effectuée, connectez-vous'
     context = {'form': form, 'message': message}
     return render(request, 'authentication/signup.html', context)
+
+

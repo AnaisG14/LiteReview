@@ -3,4 +3,10 @@ from django.db import models
 
 
 class User(AbstractUser):
-    pass
+    follower = models.ManyToManyField(
+        'self',
+        symmetrical=False,
+        verbose_name='suit',
+    )
+
+

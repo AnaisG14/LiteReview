@@ -1,4 +1,5 @@
-from django.urls import path
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.urls import path, reverse_lazy
 from . import views
 
 app_name = 'authentication'
