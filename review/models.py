@@ -34,8 +34,8 @@ class Review(models.Model):
 
 
 class UserFollows(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="following")
-    followed_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="followed_by")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="following")  # utilisateur connecté
+    followed_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="followed_by")   # utilisateur suivi par le connecté
 
     class Meta:
         unique_together = ('user', 'followed_user')

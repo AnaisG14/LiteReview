@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 
 from . import models
+from .models import UserFollows
 
 
 class TicketForm(forms.ModelForm):
@@ -19,5 +20,9 @@ class ReviewForm(forms.ModelForm):
 
 class FollowUsersForm(forms.ModelForm):
     class Meta:
-        model = get_user_model()
-        fields = ['follower']
+        model = UserFollows
+        fields = ['followed_user']
+
+
+class StopFollowForm(forms.Form):
+    stop_follow = forms.BooleanField(widget=forms.HiddenInput, initial=True)

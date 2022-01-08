@@ -3,7 +3,7 @@
 {% block content %}
 <h1>Bienvenue à l'accueil du site LitReview</h1>
 
-<button type="button" class="btn btn-secondary">Créer une critique</button>
+<a href="{% url 'review:add_review_ticket' %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
 <a href="{% url 'review:add_ticket' %}"><button type="button" class="btn btn-secondary">Demander une critique</button></a>
 
 <div class="container-fluid">
@@ -13,7 +13,20 @@
         <h2>{{ ticket.title }}</h2>
         <p>{{ ticket.description }}</p>
         <p><img src="{{ticket.image.url}}" alt="{{ticket.title}}"></p>
+        <div class="bg-success">
+        {% for review in reviews %}
+            {% if review.ticket.id == ticket.id %}
+                <p>Par {{review.user}} le {{review.time_created}}</p>
+                <p>{{review.headline}} : {{review.rating}}</p>
+                <p>{{review.body}}</p>
+            {% else %}
+                <a href="{% url 'review:add_review' ticket.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
+            {% endif %}
+        {% endfor %}
+        </div>
     </div>
+
+
     {% endfor %}
 </div>
 

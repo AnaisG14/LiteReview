@@ -2,9 +2,9 @@
 {% block content %}
     <h2>Vos abonnements et abonnés</h2>
     <p>vous suivez :
-    {% for followed in user_followed %}
-        <li>{{ followed.username }} <a href="">(Se désabonner)</a></li>
-    {% endfor %}
+        {% for instance in instance_userfollows %}
+        <li>{{ instance.followed_user.username }} <a href="{% url 'review:stop_follow' instance.id %}">(Se désabonner)</a></li>
+        {% endfor %}
     </p>
     <p>vous êtes suivis par :
      {% for follower in user_followers %}
