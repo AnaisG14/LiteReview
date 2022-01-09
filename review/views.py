@@ -45,6 +45,9 @@ def add_review(request, ticket_id=None):
                 review.user = request.user
                 review.ticket = ticket
                 review.save()
+                ticket.review_ok = True
+                ticket.save()
+                return redirect('review:home')
         context = {'form_ticket': form_ticket, 'form_review': form_review}
     else:
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
@@ -56,7 +59,7 @@ def add_review(request, ticket_id=None):
                 review.user = request.user
                 review.ticket = ticket
                 review.save()
-                ticket.review_ok=True
+                ticket.review_ok = True
                 ticket.save()
                 return redirect('review:home')
         context = {'ticket': ticket, 'form_review': form_review}
