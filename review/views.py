@@ -10,6 +10,8 @@ def home(request):
     user_follows = [instance.followed_user for instance in UserFollows.objects.filter(user=request.user)]
     tickets = models.Ticket.objects.filter(Q(user__in=user_follows)|Q(user=request.user))
     reviews = models.Review.objects.filter(Q(user__in=user_follows)|Q(user=request.user))
+    for review in reviews:
+        review.rating = chr(9733) * int(review.rating)
     context = {'tickets': tickets, 'reviews': reviews}
     return render(request, 'review/home.html', context)
 
