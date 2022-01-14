@@ -1,0 +1,8 @@
+{% block content %}
+
+        <p>{{ ticket.user }} demande une critique: {{ ticket.time_created}}</p>
+        <h2>{{ ticket.title }}</h2>
+        <p>{{ ticket.description }}</p>
+        <p><img src="{{ticket.image.url}}" alt="{{ticket.title}}"></p>
+
+{% endblock content %}

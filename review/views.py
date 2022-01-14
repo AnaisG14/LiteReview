@@ -1,6 +1,8 @@
+from itertools import chain
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.db.models import Q
+from django.db.models import Q, CharField, Value
 from . import forms, models
 from .models import UserFollows
 
@@ -10,9 +12,16 @@ def home(request):
     user_follows = [instance.followed_user for instance in UserFollows.objects.filter(user=request.user)]
     tickets = models.Ticket.objects.filter(Q(user__in=user_follows)|Q(user=request.user))
     reviews = models.Review.objects.filter(Q(user__in=user_follows)|Q(user=request.user))
+    tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
+    reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
     for review in reviews:
-        review.rating = chr(9733) * int(review.rating)
-    context = {'tickets': tickets, 'reviews': reviews}
+        review.rating = chr(9733) * int(review.rating) + chr(9734) * int(5 - review.rating)
+    posts = sorted(
+        chain(reviews, tickets),
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+    context = {'posts': posts}
     return render(request, 'review/home.html', context)
 
 
@@ -47,13 +56,18 @@ def add_review(request, ticket_id=None):
                 review.user = request.user
                 review.ticket = ticket
                 review.save()
-                ticket.review_ok = True
+                ticket.number_reviews += 1
                 ticket.save()
                 return redirect('review:home')
         context = {'form_ticket': form_ticket, 'form_review': form_review}
     else:
         ticket = get_object_or_404(models.Ticket, id=ticket_id)
         form_review = forms.ReviewForm()
+        # search if review exist for the user
+        reviews = models.Review.objects.all()
+        for review in reviews:
+            if review.ticket.id == ticket_id and review.user == request.user:
+                return redirect("review:home")
         if request.method == "POST":
             form_review = forms.ReviewForm(request.POST)
             if form_review.is_valid():
@@ -61,7 +75,7 @@ def add_review(request, ticket_id=None):
                 review.user = request.user
                 review.ticket = ticket
                 review.save()
-                ticket.review_ok = True
+                ticket.number_reviews += 1
                 ticket.save()
                 return redirect('review:home')
         context = {'ticket': ticket, 'form_review': form_review}

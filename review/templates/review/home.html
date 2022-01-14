@@ -7,29 +7,32 @@
 <a href="{% url 'review:add_ticket' %}"><button type="button" class="btn btn-secondary">Demander une critique</button></a>
 
 <div class="container-fluid">
-    {% for ticket in tickets %}
-    <div class="bg-light border m-5">
-        <p>{{ ticket.user }} demande une critique: {{ ticket.time_created}}</p>
-        <h2>{{ ticket.title }}</h2>
-        <p>{{ ticket.description }}</p>
-        <p><img src="{{ticket.image.url}}" alt="{{ticket.title}}"></p>
-        <div class="bg-success">
-        {% if not ticket.review_ok %}
-            <a href="{% url 'review:add_review' ticket.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
-        {% endif %}
-        {% for review in reviews %}
-            {% if review.ticket.id == ticket.id %}
-                <p>Par {{review.user}} le {{review.time_created}}</p>
-                <p>{{review.headline}} : {{review.rating}}</p>
-                <p>{{review.body}}</p>
+    <div>
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %}
+                {% if post.number_reviews == 0 %}
+                <div class="container-fluid">
+                    <div class="bg-light border m-5">
+                        {% include 'review/ticket_snippet.html' with ticket=post %}
+                        <a href="{% url 'review:add_review' post.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
+                    </div>
+                </div>
+                {% endif %}
+            {% elif post.content_type == "REVIEW" %}
+                <div class="container-fluid bg-light border m-5">
+                {% if post.user != request.user %}
+                    <a href="{% url 'review:add_review' post.ticket.id %}"><button type="button" class="btn btn-secondary">Ajouter une critique</button></a>
+                {% endif %}
+                {% include 'review/review_snippet.html' with review=post%}
+                <div class="container-fluid">
+                    <div class="bg-light border m-5">
+                    {% include 'review/ticket_snippet.html' with ticket=post.ticket %}
+                    </div>
+                </div>
+                </div>
             {% endif %}
         {% endfor %}
-
-        </div>
     </div>
-
-
-    {% endfor %}
 </div>
 
 {% endblock %}
