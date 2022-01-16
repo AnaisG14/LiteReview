@@ -1,39 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Bienvenue à l'accueil du site LitReview</h1>
+<h1 class="d-flex justify-content-center">Bienvenue à l'accueil du site LitReview</h1>
 
-<a href="{% url 'review:add_review_ticket' %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
-<a href="{% url 'review:add_ticket' %}"><button type="button" class="btn btn-secondary">Demander une critique</button></a>
+<div class="d-flex justify-content-around">
+<a href="{% url 'review:add_review_ticket' %}"><button type="button" class="btn btn-secondary btn-lg">Créer une critique</button></a>
+<a href="{% url 'review:add_ticket' %}"><button type="button" class="btn btn-secondary btn-lg">Demander une critique</button></a>
+</div>
 
 <div class="container-fluid">
     <div>
         {% for post in posts %}
             {% if post.content_type == 'TICKET' %}
                 {% if post.number_reviews == 0 %}
-                <div class="container-fluid">
-                    <div class="bg-light border m-5">
+                <div class="container-fluid border border-dark">
                         {% include 'review/ticket_snippet.html' with ticket=post %}
-                        <a href="{% url 'review:add_review' post.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
-                    </div>
                 </div>
                 {% endif %}
             {% elif post.content_type == "REVIEW" %}
-                <div class="container-fluid bg-light border m-5">
-                {% if post.user != request.user %}
-                    <a href="{% url 'review:add_review' post.ticket.id %}"><button type="button" class="btn btn-secondary">Ajouter une critique</button></a>
-                {% endif %}
+                <div class=" col-11 container-fluid bg-info border m-5">
                 {% include 'review/review_snippet.html' with review=post%}
-                <div class="container-fluid">
-                    <div class="bg-light border m-5">
-                    {% include 'review/ticket_snippet.html' with ticket=post.ticket %}
-                    </div>
-                </div>
+
                 </div>
             {% endif %}
         {% endfor %}
     </div>
 </div>
+
 
 {% endblock %}
 

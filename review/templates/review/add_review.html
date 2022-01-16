@@ -1,10 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Ajouter une critique</h2>
+<h1 class="d-flex justify-content-center">Ajouter une critique</h1>
+<div class="border mx-5">
+    {% if ticket %}
+    <p>Vous êtes en train de répondre à:</p>
+
+        {% include 'review/ticket_snippet.html' %}
+
+    {% endif %}
+</div>
+<div class="bg-light border m-5">
     <form method="post" enctype="multipart/form-data">
         {{ form_ticket.as_p }}
-        {{ form_review.as_p }}
+
+        <p class="mx-5 mt-1">{{ form_review.headline.label}}{{ form_review.headline }}</p>
+        <p class="mx-5 my-1">{{ form_review.body.label }}</p>
+        <p class="mx-5 my-1">{{ form_review.body }}</p>
+
+    <div class="form-check form-check-inline m-5">
+        <p>Note : </p>
+        {% for radio in form_review.rating %}
+        <div class="form-check form-check-inline">
+            {{ radio }}
+        </div>
+        {% endfor %}
+    </div>
+
         {% csrf_token %}
-        <button type="submit" >Confirmer</button>
+        <p class="d-flex justify-content-center"><button type="submit" class="btn btn-secondary btn-lg ">Confirmer</button></p>
     </form>
+</div>
 {% endblock content %}
