@@ -1,20 +1,23 @@
 {% block content %}
 <div class=" col-11 container-fluid bg-info border m-5">
+    <div class="border">
     <p>Par {{review.user}} le {{review.time_created}}</p>
-    <p>{{review.headline}} : {{review.rating}}</p>
+    <p>{{review.headline}} : {{review.star_rating}}</p>
     <p>{{review.body}}</p>
-
+    </div>
+    <div class="border">
     {% for rev in review.ticket.review_set.all %}
         {% if rev.time_created < review.time_created %}
         <p>Par {{rev.user}} le {{rev.time_created}}</p>
-        <p>{{rev.headline}} : {{rev.rating}}</p>
+        <p>{{rev.headline}} : {{rev.star_rating}}</p>
         <p>{{rev.body}}</p>
         {% endif %}
     {% endfor %}
+    </div>
     <div class="container-fluid m-2">
     {% include 'review/ticket_snippet.html' with ticket=review.ticket %}
     {% if review.user != request.user %}
-        <a class="d-flex justify-content-center mt-3" href="{% url 'review:add_review' post.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
+        <a class="d-flex justify-content-center mt-3" href="{% url 'review:add_review' review.ticket.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
     {% endif %}
     </div>
 </div>

@@ -32,10 +32,15 @@ class Review(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(5)],
         default=0,
     )
+    star_rating = models.CharField(default='', max_length=20)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     headline = models.CharField('titre', max_length=128)
     body = models.TextField('Votre avis', max_length=8192)
     time_created = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        self.star_rating = chr(9733) * int(self.rating) + chr(9734) * int(5 - self.rating)
+        super().save(*args, **kwargs)
 
 
 class UserFollows(models.Model):

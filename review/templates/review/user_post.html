@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="d-flex justify-content-center">Vos posts</h1>
+
+<div class="container-fluid">
+    <div>
+        {% for post in posts %}
+            {% if post.content_type == 'TICKET' %}
+                <div class="col-11 container-fluid bg-light border m-5">
+                    <h2>Vous avez demandé un avis sur :</h2>
+                    <p>{{ post.time_created }}</p>
+                    <p>{{ post.title }}</p>
+                    <p>{{ post.description }}</p>
+                    <p class="m-2"><img src="{{post.image.url}}" alt="{{post.title}}"></p>
+                    <p class="col-2 d-flex justify-content-around">
+                        <a><button type="button" class="btn btn-secondary">Modifier</button></a>
+                        <a><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                    </p>
+                </div>
+            {% elif post.content_type == "REVIEW" %}
+                <div class=" col-11 container-fluid bg-info border m-5">
+                    <h2>Vous avez donné votre avis :</h2>
+                    <p>{{ post.time_created }}</p>
+                    <p>{{post.headline}} : {{post.star_rating}}</p>
+                    <p>{{post.body}}</p>
+                    <div class="container-fluid bg-light">
+                        <p>{{ post.ticket.title }}</p>
+                        <p>{{ post.ticket.description }}</p>
+                        <p class="m-2"><img src="{{post.ticket.image.url}}" alt="{{post.ticket.title}}"></p>
+                    </div>
+                    <p class="col-2 d-flex justify-content-around">
+                        <a href="{% url 'review:edit_review' review_id=post.id %}"><button type="button" class="btn btn-secondary">Modifier</button></a>
+                        <a><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
+

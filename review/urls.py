@@ -9,5 +9,7 @@ urlpatterns = [
     path('following_page/', views.display_followers, name='following_page'),
     path('stop_follow/<int:followed_id>', views.stop_follow, name="stop_follow"),
     path('add_review_ticket/', views.add_review, name="add_review_ticket"),
-    path('add_review/<int:ticket_id>', views.add_review, name="add_review")
+    path('add_review/<int:ticket_id>', views.add_review, name="add_review"),
+    path('display_user_posts/', views.display_user_posts, name="display_user_posts"),
+    path("edit_review/<int:review_id>", views.edit_review, name="edit_review"),
 ]

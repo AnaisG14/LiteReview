@@ -14,8 +14,8 @@ def home(request):
     reviews = models.Review.objects.filter(Q(user__in=user_follows)|Q(user=request.user))
     tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
     reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
-    for review in reviews:
-        review.rating = chr(9733) * int(review.rating) + chr(9734) * int(5 - review.rating)
+    # for review in reviews:
+    #     review.rating = chr(9733) * int(review.rating) + chr(9734) * int(5 - review.rating)
     posts = sorted(
         chain(reviews, tickets),
         key=lambda post: post.time_created,
@@ -83,7 +83,6 @@ def add_review(request, ticket_id=None):
     return render(request, 'review/add_review.html', context)
 
 
-
 @login_required
 def follow_user(request):
     form = forms.FollowUsersForm()
@@ -117,3 +116,50 @@ def display_followers(request):
     user_followers = [ins.user for ins in UserFollows.objects.filter(followed_user=request.user)]
     context = {'instance_userfollows': instance_userfollows, 'user_followers': user_followers}
     return render(request, 'review/following_page.html', context)
+
+
+@login_required
+def display_user_posts(request):
+    tickets = models.Ticket.objects.filter(user=request.user)
+    reviews = models.Review.objects.filter(user=request.user)
+    tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
+    reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
+    posts = sorted(
+        chain(reviews, tickets),
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+    context = {'posts': posts}
+    return render(request, 'review/user_post.html', context)
+
+
+@login_required
+def edit_ticket(request, ticket_id):
+    ticket = get_object_or_404(models.Ticket, id=ticket_id)
+    edit_form = forms.TicketForm(instance=ticket)
+    if request.method == "POST":
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('review:display_user_posts')
+    context = {
+        'edit_form': edit_form,
+    }
+    return render(request, 'review/add_ticket.html', context)
+
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(models.Review, id=review_id)
+    ticket = review.ticket
+    edit_form = forms.ReviewForm(instance=review)
+    if request.method == "POST":
+        edit_form = forms.ReviewForm(request.POST, instance=review)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('review:display_user_posts')
+    context = {
+        'edit_form': edit_form,
+        'review': review,
+        'ticket': ticket,
+    }
+    return render(request, 'review/edit_review.html', context)

@@ -6,7 +6,7 @@
         <p class="m-2"><img src="{{ticket.image.url}}" alt="{{ticket.title}}"></p>
 
         {% if not ticket.review_set.all %}
-     <a class="d-flex justify-content-center mt-3" href="{% url 'review:add_review' post.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
+     <a class="d-flex justify-content-center mt-3" href="{% url 'review:add_review' ticket.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
         {% endif %}
  </div>
 {% endblock content %}
