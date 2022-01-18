@@ -2,14 +2,14 @@
 <div class=" col-11 container-fluid bg-info border m-5">
     <div class="border">
     <p>Par {{review.user}} le {{review.time_created}}</p>
-    <p>{{review.headline}} : {{review.star_rating}}</p>
+    <p>{{review.headline}} : {{review.get_star_rating}}</p>
     <p>{{review.body}}</p>
     </div>
     <div class="border">
     {% for rev in review.ticket.review_set.all %}
         {% if rev.time_created < review.time_created %}
         <p>Par {{rev.user}} le {{rev.time_created}}</p>
-        <p>{{rev.headline}} : {{rev.star_rating}}</p>
+        <p>{{rev.headline}} : {{rev.get_star_rating}}</p>
         <p>{{rev.body}}</p>
         {% endif %}
     {% endfor %}
