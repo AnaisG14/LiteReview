@@ -14,15 +14,15 @@
                     <p>{{ post.description }}</p>
                     <p class="m-2"><img src="{{post.image.url}}" alt="{{post.title}}"></p>
                     <p class="col-2 d-flex justify-content-around">
-                        <a><button type="button" class="btn btn-secondary">Modifier</button></a>
-                        <a><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                        <a href="{% url 'review:add_ticket' ticket_id=post.id %}"><button type="button" class="btn btn-secondary">Modifier</button></a>
+                        <a href="{% url 'review:delete_ticket' ticket_id=post.id %}"><button type="button" class="btn btn-secondary">Supprimer le ticket</button></a>
                     </p>
                 </div>
             {% elif post.content_type == "REVIEW" %}
                 <div class=" col-11 container-fluid bg-info border m-5">
                     <h2>Vous avez donné votre avis :</h2>
                     <p>{{ post.time_created }}</p>
-                    <p>{{post.headline}} : {{post.star_rating}}</p>
+                    <p>{{post.headline}} : {{post.get_rating_star}}</p>
                     <p>{{post.body}}</p>
                     <div class="container-fluid bg-light">
                         <p>{{ post.ticket.title }}</p>
@@ -31,7 +31,7 @@
                     </div>
                     <p class="col-2 d-flex justify-content-around">
                         <a href="{% url 'review:edit_review' review_id=post.id %}"><button type="button" class="btn btn-secondary">Modifier</button></a>
-                        <a><button type="button" class="btn btn-secondary">Supprimer</button></a>
+                        <a href="{% url 'review:delete_review' review_id=post.id %}"><button type="button" class="btn btn-secondary">Supprimer</button></a>
                     </p>
                 </div>
             {% endif %}

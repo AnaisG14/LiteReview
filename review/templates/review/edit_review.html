@@ -3,11 +3,12 @@
 <h1 class="d-flex justify-content-center">Modifier votre critique</h1>
 <div class="border mx-5">
     <p>Vous êtes en train de répondre à:</p>
+    <div class="col-6 bg-light d-flex-row justify-content-center my-2 mx-10 p-1 border">
     <p>{{ review.ticket.time_created }}</p>
     <p>{{ review.ticket.title }}</p>
     <p>{{ review.ticket.description }}</p>
     <p class="m-2"><img src="{{review.ticket.image.url}}" alt="{{review.ticket.title}}"></p>
-
+    </div>
 </div>
 <div class="bg-light border m-5">
     <form method="post" enctype="multipart/form-data">

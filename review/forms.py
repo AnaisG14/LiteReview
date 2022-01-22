@@ -5,6 +5,7 @@ from django.forms import Textarea, TextInput
 
 from . import models
 from .models import UserFollows
+from authentication.models import User
 
 
 class TicketForm(forms.ModelForm):
@@ -39,9 +40,31 @@ class ReviewForm(forms.ModelForm):
 
 class FollowUsersForm(forms.ModelForm):
     class Meta:
+        users = User.objects.all()
         model = UserFollows
         fields = ['followed_user']
+        labels = {
+            'followed_user': "sélectionner un utilisateur"
+        }
+
+
+class SearchUserForm(forms.Form):
+    users = User.objects.all()
+    USERS = [
+        (user, user) for user in users
+    ]
+    search_user = forms.MultipleChoiceField(widget=forms.Select,
+                                            label="rechercher un utilisateur",
+                                            choices=USERS)
 
 
 class StopFollowForm(forms.Form):
     stop_follow = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+
+class DeleteReviewForm(forms.Form):
+    delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+
+class DeleteTicketForm(forms.Form):
+    delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)

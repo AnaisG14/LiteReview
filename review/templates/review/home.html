@@ -13,7 +13,7 @@
         {% for post in posts %}
             {% if post.content_type == 'TICKET' %}
                 {% if post.number_reviews == 0 %}
-                <div class="container-fluid border border-dark">
+                <div class="container-fluid my-2">
                         {% include 'review/ticket_snippet.html' with ticket=post %}
                 </div>
                 {% endif %}

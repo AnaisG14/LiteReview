@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
     <h2>Suivre des utilisateurs</h2>
+    <p>Vous n'avez pas entré d'utilisateur ou celui-ci n'existe pas. Veuillez le sélectionner dans la liste ci-dessous.</p>
     <form method="post">
-        {{ form.as_p }}
+        {{ form_follow_user.as_p }}
         {% csrf_token %}
         <button type="submit" >Confirmer</button>
     </form>

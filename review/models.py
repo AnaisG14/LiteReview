@@ -22,7 +22,14 @@ class Ticket(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.resize_image()
+        if self.image:
+            self.resize_image()
+
+    @property
+    def get_review(self):
+        reviews = self.review_set.all()
+        review_users = [review.user for review in reviews]
+        return review_users
 
 
 class Review(models.Model):
@@ -38,13 +45,9 @@ class Review(models.Model):
     body = models.TextField('Votre avis', max_length=8192)
     time_created = models.DateTimeField(auto_now_add=True)
 
-    # @property  # instance.get_rating_star
+    @property  # instance.get_rating_star
     def get_rating_star(self):
-        self.star_rating = chr(9733) * self.rating + chr(9734) * (5 - self.rating)
-
-    # def save(self, *args, **kwargs):
-    #     self.star_rating = chr(9733) * int(self.rating) + chr(9734) * int(5 - self.rating)
-    #     super().save(*args, **kwargs)
+        return chr(9733) * self.rating + chr(9734) * (5 - self.rating)
 
 
 class UserFollows(models.Model):

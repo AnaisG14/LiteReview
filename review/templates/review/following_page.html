@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Vos abonnements et abonnés</h2>
-    <p>vous suivez :
+    <h2 class="d-flex justify-content-center my-5">Vos abonnements et abonnés</h2>
+    <div class="d-flex row border bg-light mx-5">
+        <h3 class="d-flex justify-content-center">Suivre d'autres utilisateurs</h3>
+        <p class="d-flex justify-content-center">Tapez les premières lettres du nom de l'utilisateur afin de le retrouver facilement dans la liste.</p>
+        <p><form method="post" class="d-flex justify-content-center">
+        {{ form_search_user }}
+        {% csrf_token %}
+          </form>
+        </p>
+        <p class="d-flex justify-content-center"><button type="submit">S'abonner</button></p>
+    </div>
+    <div class="d-flex row border bg-light mx-5 my-5">
+    <h3 class="d-flex justify-content-center">Abonnements :</h3>
+        <ul class="d-flex row justify-content-center">
         {% for instance in instance_userfollows %}
-        <li>{{ instance.followed_user.username }} <a href="{% url 'review:stop_follow' instance.id %}">(Se désabonner)</a></li>
+        <li class="d-flex justify-content-center my-1">{{ instance.followed_user.username }} <a href="{% url 'review:stop_follow' instance.id %}">(Se désabonner)</a></li>
         {% endfor %}
-    </p>
-    <p>vous êtes suivis par :
+        </ul>
+    </div>
+    <div class="d-flex row border bg-light mx-5 my-5">
+        <h3 class="d-flex justify-content-center">Abonnés :</h3>
+        <ul class="d-flex row justify-content-center">
      {% for follower in user_followers %}
-        <li>{{ follower }}</li>
+        <li class="d-flex justify-content-center my-1">{{ follower }}</li>
     {% endfor %}
-    </p>
-    <a href="{% url 'review:follow_users' %}"><button>S'abonner</button></a>
+        </ul>
+
+    </div>
+
+
 {% endblock content %}

@@ -1,12 +1,23 @@
 {% block content %}
- <div class="col-6 bg-light d-flex-row justify-content-center mx-5 p-1 border border-dark">
-        <p>{{ ticket.user }} demande une critique: {{ ticket.time_created}}</p>
+ <div class="col-6 bg-light d-flex-row justify-content-center my-2 mx-5 p-1 border border-dark">
+     <p>
+     {% if ticket.user == request.user %}
+         Vous avez
+         {% else %}
+        {{ ticket.user }} a
+         {% endif %}
+         demandé une critique: {{ ticket.time_created}}</p>
         <h2>{{ ticket.title }}</h2>
         <p>{{ ticket.description }}</p>
+        {% if ticket.image %}
         <p class="m-2"><img src="{{ticket.image.url}}" alt="{{ticket.title}}"></p>
-
-        {% if not ticket.review_set.all %}
-     <a class="d-flex justify-content-center mt-3" href="{% url 'review:add_review' ticket.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
         {% endif %}
+
+     {% if request.user not in ticket.get_review %}
+        {% if not form_review %}
+     <a class="d-flex justify-content-center mt-3" href="{% url 'review:add_review' ticket.id %}"><button type="button" class="btn btn-secondary">Créer une critique</button></a>
+        {% endif %}     {% endif %}
+
+
  </div>
 {% endblock content %}
