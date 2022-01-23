@@ -12,7 +12,9 @@ def home(request):
 
     user_follows = [instance.followed_user for instance in UserFollows.objects.filter(user=request.user)]
     tickets = models.Ticket.objects.filter(Q(user__in=user_follows) | Q(user=request.user))
-    reviews = models.Review.objects.filter(Q(user__in=user_follows) | Q(user=request.user))
+    reviews = models.Review.objects.filter(Q(user__in=user_follows) |
+                                           Q(user=request.user) |
+                                           Q(ticket__user=request.user))
     tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
     reviews = reviews.annotate(content_type=Value("REVIEW", CharField()))
     posts = sorted(
