@@ -4,8 +4,8 @@ Each user can follow other users or have followers.
 Application developed with the django framework.
 
 ## A- Cloned the GitHub project 
-### 1- Créer un dossier et se placer dans ce dossier.
-    sous linux :
+### 1- Create a folder and place yourself inside it.
+    whith linux :
     $ mkdir <mon_dossier>
     $ cd <mon_dossier>
 ### 2- Clone the GitHub folder "LiteReview"
