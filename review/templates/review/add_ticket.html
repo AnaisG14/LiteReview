@@ -2,15 +2,11 @@
 
 {% block content %}
 <h1 class="d-flex justify-content-center">Ajouter un ticket</h1>
-
 <div class="container-fluid bg-light">
     <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form_ticket.as_p}}
-
-
-    <button type="submit">Ajouter le ticket</button>
-</form>
+        {% csrf_token %}
+        {{form_ticket.as_p}}
+        <button type="submit">Ajouter le ticket</button>
+    </form>
 </div>
-
 {% endblock %}

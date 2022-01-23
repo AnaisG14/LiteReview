@@ -1,20 +1,22 @@
 # review/forms
 from django import forms
-from django.contrib.auth import get_user_model
 from django.forms import Textarea, TextInput
-
 from . import models
 from .models import UserFollows
 from authentication.models import User
 
 
 class TicketForm(forms.ModelForm):
+    """ A form based on a model 'Ticket' to create a new ticket. """
+
     class Meta:
         model = models.Ticket
         fields = ['title', 'description', 'image']
 
 
 class ReviewForm(forms.ModelForm):
+    """ A form based on a model 'Review' to create a new review. """
+
     class Meta:
         model = models.Review
         fields = ['headline', 'body', 'rating']
@@ -32,13 +34,11 @@ class ReviewForm(forms.ModelForm):
             'rating': forms.RadioSelect(choices=RATING_CHOICES)
         }
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['headline'].widget.attrs.update(size='100')
-    #     self.fields['body'].widget.attrs.update(col='800')
-
 
 class FollowUsersForm(forms.ModelForm):
+    """ A form based on a model 'FollowUsers' to create
+    a new follower for a user. """
+
     class Meta:
         users = User.objects.all()
         model = UserFollows
@@ -48,23 +48,19 @@ class FollowUsersForm(forms.ModelForm):
         }
 
 
-class SearchUserForm(forms.Form):
-    users = User.objects.all()
-    USERS = [
-        (user, user) for user in users
-    ]
-    search_user = forms.MultipleChoiceField(widget=forms.Select,
-                                            label="rechercher un utilisateur",
-                                            choices=USERS)
-
-
 class StopFollowForm(forms.Form):
+    """ A form to stop a user follow another. """
+
     stop_follow = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 
 class DeleteReviewForm(forms.Form):
+    """ A form to delete a review create by the connected user. """
+
     delete_review = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
 
 class DeleteTicketForm(forms.Form):
+    """ A form to delete a ticket create by the connected user. """
+
     delete_ticket = forms.BooleanField(widget=forms.HiddenInput, initial=True)

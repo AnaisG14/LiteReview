@@ -3,11 +3,9 @@
 <h1 class="d-flex justify-content-center">Supprimer votre ticket</h1>
 <div class="border mx-5">
     <p>Vous souhaitez supprimer le ticket suivant :</p>
-
-        <p class="mx-5 mt-1">{{ ticket.title }}</p>
-        <p class="mx-5 my-1">{{ ticket.description }}</p>
-        <p class="mx-5 my-1"><img src="{{ ticket.image.url }}" alt="{{ ticket.title }}"></p>
-
+    <p class="mx-5 mt-1">{{ ticket.title }}</p>
+    <p class="mx-5 my-1">{{ ticket.description }}</p>
+    <p class="mx-5 my-1"><img src="{{ ticket.image.url }}" alt="{{ ticket.title }}"></p>
     <form method="post">
         {{ delete_ticket }}
         {% csrf_token %}

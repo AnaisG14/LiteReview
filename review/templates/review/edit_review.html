@@ -4,28 +4,25 @@
 <div class="border mx-5">
     <p>Vous êtes en train de répondre à:</p>
     <div class="col-6 bg-light d-flex-row justify-content-center my-2 mx-10 p-1 border">
-    <p>{{ review.ticket.time_created }}</p>
-    <p>{{ review.ticket.title }}</p>
-    <p>{{ review.ticket.description }}</p>
-    <p class="m-2"><img src="{{review.ticket.image.url}}" alt="{{review.ticket.title}}"></p>
+        <p>{{ review.ticket.time_created }}</p>
+        <p>{{ review.ticket.title }}</p>
+        <p>{{ review.ticket.description }}</p>
+        <p class="m-2"><img src="{{review.ticket.image.url}}" alt="{{review.ticket.title}}"></p>
     </div>
 </div>
 <div class="bg-light border m-5">
     <form method="post" enctype="multipart/form-data">
-
         <p class="mx-5 mt-1">{{ edit_form.headline.label}}{{ edit_form.headline }}</p>
         <p class="mx-5 my-1">{{ edit_form.body.label }}</p>
         <p class="mx-5 my-1">{{ edit_form.body }}</p>
-
-    <div class="form-check form-check-inline m-5">
-        <p>Note : </p>
-        {% for radio in edit_form.rating %}
-        <div class="form-check form-check-inline">
-            {{ radio }}
+        <div class="form-check form-check-inline m-5">
+            <p>Note : </p>
+            {% for radio in edit_form.rating %}
+            <div class="form-check form-check-inline">
+                {{ radio }}
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-
         {% csrf_token %}
         <p class="d-flex justify-content-center"><button type="submit" class="btn btn-secondary btn-lg ">Confirmer</button></p>
     </form>

@@ -4,8 +4,8 @@
 <h1 class="d-flex justify-content-center">Bienvenue à l'accueil du site LitReview</h1>
 
 <div class="d-flex justify-content-around">
-<a href="{% url 'review:add_review_ticket' %}"><button type="button" class="btn btn-secondary btn-lg">Créer une critique</button></a>
-<a href="{% url 'review:add_ticket' %}"><button type="button" class="btn btn-secondary btn-lg">Demander une critique</button></a>
+    <a href="{% url 'review:add_review_ticket' %}"><button type="button" class="btn btn-secondary btn-lg">Créer une critique</button></a>
+    <a href="{% url 'review:add_ticket' %}"><button type="button" class="btn btn-secondary btn-lg">Demander une critique</button></a>
 </div>
 
 <div class="container-fluid">
@@ -26,7 +26,5 @@
         {% endfor %}
     </div>
 </div>
-
-
 {% endblock %}
 

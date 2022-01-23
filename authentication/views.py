@@ -4,11 +4,15 @@ from . import forms
 
 
 def logout_user(request):
+    """ Logout the user and redirect to the authentication page. """
+
     logout(request)
     return redirect('authentication:login')
 
 
 def login_page(request):
+    """ Login the user and redirect to the home page. """
+
     form = forms.LoginForm()
     message = ''
     if request.method == "POST":
@@ -28,6 +32,9 @@ def login_page(request):
 
 
 def signup(request):
+    """ Create a new count for a new user and
+    redirect to the authentication page. """
+
     form = forms.SignUpForm()
     message = ''
     if request.method == 'POST':
@@ -37,5 +44,3 @@ def signup(request):
             message = 'Votre inscription est effectuée, connectez-vous'
     context = {'form': form, 'message': message}
     return render(request, 'authentication/signup.html', context)
-
-

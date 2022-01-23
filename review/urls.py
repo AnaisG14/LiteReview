@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+# urls for the review application
 app_name = 'review'
 urlpatterns = [
     path('', views.home, name='home'),

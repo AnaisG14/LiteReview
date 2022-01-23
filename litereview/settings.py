@@ -131,4 +131,3 @@ LOGIN_URL = 'authentication:login'
 # configuration medias
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR.joinpath('media/')
-

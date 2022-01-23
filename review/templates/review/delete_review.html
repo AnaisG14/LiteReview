@@ -3,11 +3,9 @@
 <h1 class="d-flex justify-content-center">Supprimer votre critique</h1>
 <div class="border mx-5">
     <p>Vous souhaitez supprimer la critique liée à :</p>
-
-        <p class="mx-5 mt-1">{{ review.ticket.title }}</p>
-        <p class="mx-5 my-1">{{ review.ticket.description }}</p>
-        <p class="mx-5 my-1"><img src="{{ review.ticket.image.url }}" alt="{{ review.ticket.title }}"></p>
-
+    <p class="mx-5 mt-1">{{ review.ticket.title }}</p>
+    <p class="mx-5 my-1">{{ review.ticket.description }}</p>
+    <p class="mx-5 my-1"><img src="{{ review.ticket.image.url }}" alt="{{ review.ticket.title }}"></p>
     <form method="post">
         {{ delete_form }}
         {% csrf_token %}
