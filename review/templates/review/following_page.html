@@ -4,12 +4,14 @@
     <div class="d-flex row border bg-light mx-5">
         <h3 class="d-flex justify-content-center">Suivre d'autres utilisateurs</h3>
         <p class="d-flex justify-content-center">Tapez les premières lettres du nom de l'utilisateur afin de le retrouver facilement dans la liste.</p>
-        <p><form method="post" class="d-flex justify-content-center">
+       <form method="post">
+            <p class="d-flex-row justify-content-center border">
         {{ form_search_user }}
         {% csrf_token %}
-          </form>
-        </p>
+            </p>
         <p class="d-flex justify-content-center"><button type="submit">S'abonner</button></p>
+          </form>
+
     </div>
     <div class="d-flex row border bg-light mx-5 my-5">
         <h3 class="d-flex justify-content-center">Abonnements :</h3>
