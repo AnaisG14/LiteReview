@@ -12,7 +12,9 @@
                     <p>{{ post.time_created }}</p>
                     <p>{{ post.title }}</p>
                     <p>{{ post.description }}</p>
+                    {% if post.image %}
                     <p class="m-2"><img src="{{post.image.url}}" alt="{{post.title}}"></p>
+                    {% endif %}
                     <p class="col-2 d-flex justify-content-around">
                         <a href="{% url 'review:add_ticket' ticket_id=post.id %}"><button type="button" class="btn btn-secondary">Modifier</button></a>
                         <a href="{% url 'review:delete_ticket' ticket_id=post.id %}"><button type="button" class="btn btn-secondary">Supprimer le ticket</button></a>
@@ -27,7 +29,9 @@
                     <div class="container-fluid bg-light">
                         <p>{{ post.ticket.title }}</p>
                         <p>{{ post.ticket.description }}</p>
+                        {% if post.ticket.image %}
                         <p class="m-2"><img src="{{post.ticket.image.url}}" alt="{{post.ticket.title}}"></p>
+                        {% endif %}
                     </div>
                     <p class="col-2 d-flex justify-content-around">
                         <a href="{% url 'review:edit_review' review_id=post.id %}"><button type="button" class="btn btn-secondary">Modifier</button></a>
