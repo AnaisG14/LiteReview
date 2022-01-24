@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Confirmer le désabonnement de {{ followed.user.username }}</h2>
+    <h2>Confirmer le désabonnement de {{ followed.followed_user }}</h2>
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
