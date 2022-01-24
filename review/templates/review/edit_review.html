@@ -7,7 +7,9 @@
         <p>{{ review.ticket.time_created }}</p>
         <p>{{ review.ticket.title }}</p>
         <p>{{ review.ticket.description }}</p>
+        {% if review.ticket.image %}
         <p class="m-2"><img src="{{review.ticket.image.url}}" alt="{{review.ticket.title}}"></p>
+        {% endif %}
     </div>
 </div>
 <div class="bg-light border m-5">
