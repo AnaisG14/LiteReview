@@ -5,7 +5,9 @@
     <p>Vous souhaitez supprimer le ticket suivant :</p>
     <p class="mx-5 mt-1">{{ ticket.title }}</p>
     <p class="mx-5 my-1">{{ ticket.description }}</p>
+    {% if ticket.image %}
     <p class="mx-5 my-1"><img src="{{ ticket.image.url }}" alt="{{ ticket.title }}"></p>
+    {% endif %}
     <form method="post">
         {{ delete_ticket }}
         {% csrf_token %}
