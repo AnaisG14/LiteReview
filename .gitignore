@@ -1,3 +1,4 @@
 envLite
 __pycache__
 connexion_bdd
+staticfiles
