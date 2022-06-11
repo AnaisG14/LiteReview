@@ -12,6 +12,19 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os.path
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
+
+
+def get_env_variable(var_name, default_value=None):
+    """ Get an environment variable in heroku or return the default value."""
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        if default_value is None:
+            raise ImproperlyConfigured(f"Set the {var_name} environment variable.")
+        else:
+            return default_value
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -19,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$((x*1tj1853wbl&z)p^!4__iyyj$uvh$b__t9ill73d#m_$r7'
+SECRET_KEY = get_env_variable('SECRET_KEY', 'django-insecure-$((x*1tj1853wbl&z)p^!4__iyyj$uvh$b__t9ill73d#m_$r7')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
