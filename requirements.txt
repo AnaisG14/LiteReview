@@ -56,7 +56,6 @@ pytest==7.1.1
 pytest-cov==3.0.0
 pytest-django==4.5.2
 python-dateutil==2.7.3
-python-debian===0.1.36ubuntu1
 pytz==2019.3
 pyxdg==0.26
 PyYAML==5.3.1
