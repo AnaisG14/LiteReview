@@ -1,0 +1,1 @@
+web: gunicorn litereview.wsgi --log-file -
