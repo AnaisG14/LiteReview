@@ -10,7 +10,6 @@ Click==7.0
 colorama==0.4.3
 coverage==6.3.2
 cryptography==2.8
-dbus-python==1.2.16
 distlib==0.3.0
 distro==1.4.0
 Django==4.0.2
