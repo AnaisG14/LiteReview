@@ -55,7 +55,6 @@ pyRFC3339==1.1
 pytest==7.1.1
 pytest-cov==3.0.0
 pytest-django==4.5.2
-python-apt==2.0.0+ubuntu0.20.4.6
 python-dateutil==2.7.3
 python-debian===0.1.36ubuntu1
 pytz==2019.3
